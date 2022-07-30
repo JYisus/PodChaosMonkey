@@ -8,13 +8,15 @@ import (
 type Config struct {
 	Namespace       string
 	Schedule        string
+	ScheduleFormat  string
 	IsInsideCluster bool
 }
 
 func NewConfig() *Config {
 	cfg := &Config{
 		Namespace:       "workloads",
-		Schedule:        "*/5 * * * * *",
+		Schedule:        "* * * * * ",
+		ScheduleFormat:  "cron",
 		IsInsideCluster: false,
 	}
 	namespace := os.Getenv("CM_NAMESPACE")
@@ -26,6 +28,12 @@ func NewConfig() *Config {
 	if schedule != "" {
 		cfg.Schedule = schedule
 	}
+
+	scheduleFormat := os.Getenv("CM_SCHEDULE_FORMAT")
+	if scheduleFormat != "" {
+		cfg.ScheduleFormat = scheduleFormat
+	}
+
 	if strings.ToLower(os.Getenv("CM_IS_INSIDE_CLUSTER")) == "true" {
 		cfg.IsInsideCluster = true
 	}

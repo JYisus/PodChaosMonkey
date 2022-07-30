@@ -16,7 +16,12 @@ func main() {
 	clientset := k8s.NewClientset(cfg)
 	ctx := context.Background()
 
-	scheduler := cron.New(cron.WithSeconds())
+	var scheduler *cron.Cron
+	if cfg.ScheduleFormat == "cron" {
+		scheduler = cron.New()
+	} else {
+		scheduler = cron.New(cron.WithSeconds())
+	}
 	_, err := scheduler.AddFunc(cfg.Schedule, func() {
 		runningPods, err := clientset.CoreV1().Pods(cfg.Namespace).List(ctx, v1.ListOptions{})
 		if err != nil {
