@@ -15,7 +15,7 @@ type Config struct {
 func NewConfig() *Config {
 	cfg := &Config{
 		Namespace:       "workloads",
-		Schedule:        "* * * * * ",
+		Schedule:        "* * * * *",
 		ScheduleFormat:  "cron",
 		IsInsideCluster: false,
 	}
