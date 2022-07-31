@@ -3,11 +3,12 @@ package chaos_test
 import (
 	"context"
 	"fmt"
+	"testing"
+
 	"github.com/JYisus/PodChaosMonkey/pkg/chaos"
 	"github.com/JYisus/PodChaosMonkey/pkg/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestChaos_Start(t *testing.T) {
