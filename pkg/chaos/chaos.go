@@ -2,9 +2,10 @@ package chaos
 
 import (
 	"context"
+	"log"
+
 	"github.com/JYisus/PodChaosMonkey/pkg/scheduler"
 	"github.com/JYisus/PodChaosMonkey/pkg/terminator"
-	"log"
 )
 
 type Chaos struct {

@@ -1,8 +1,11 @@
 package config
 
 import (
+	"log"
 	"os"
 	"strings"
+
+	"github.com/JYisus/PodChaosMonkey/pkg/scheduler"
 )
 
 type Config struct {
@@ -31,6 +34,9 @@ func NewConfig() *Config {
 
 	scheduleFormat := os.Getenv("CM_SCHEDULE_FORMAT")
 	if scheduleFormat != "" {
+		if !scheduler.IsValidFormat(scheduleFormat) {
+			log.Fatalln("Invalid schedule format: ", scheduleFormat)
+		}
 		cfg.ScheduleFormat = scheduleFormat
 	}
 

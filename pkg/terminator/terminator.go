@@ -3,9 +3,10 @@ package terminator
 import (
 	"context"
 	"fmt"
+	"math/rand"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"math/rand"
 )
 
 //go:generate mockgen -source=terminator.go -destination=../mocks/terminator_mock.go -package=mocks
