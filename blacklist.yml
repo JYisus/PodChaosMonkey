@@ -1,2 +1,4 @@
 labels:
   tier: control-plane
+fieldSelectors:
+  'status.phase': Pending
