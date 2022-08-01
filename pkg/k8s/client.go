@@ -1,10 +1,11 @@
 package k8s
 
 import (
-	"github.com/JYisus/PodChaosMonkey/pkg/config"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/JYisus/PodChaosMonkey/pkg/config"
 
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"

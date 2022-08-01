@@ -1,13 +1,14 @@
 package config
 
 import (
-	"github.com/JYisus/PodChaosMonkey/pkg/terminator"
-	"gopkg.in/yaml.v3"
 	"log"
 	"os"
 	"strings"
 
 	"github.com/JYisus/PodChaosMonkey/pkg/scheduler"
+	"github.com/JYisus/PodChaosMonkey/pkg/terminator"
+
+	"gopkg.in/yaml.v3"
 )
 
 type Config struct {
