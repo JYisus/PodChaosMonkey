@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-monkey
+  namespace: chaos-monkey
+  labels:
+    app: chaos-monkey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaos-monkey
+  template:
+    metadata:
+      labels:
+        app: chaos-monkey
+    spec:
+      serviceAccountName: chaos-monkey
+      containers:
+        - name: chaos-monkey
+          image: jyisus/chaos-monkey:0.0.1
+          env:
+            - name: CM_IS_INSIDE_CLUSTER
+              value: "true"
+            - name: CM_NAMESPACE
+              value: "workloads"
+            - name: CM_SCHEDULE_FORMAT
+              value: "cron-seconds"
+            - name: CM_SCHEDULE
+              value: "*/5 * * * * *"
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128M
