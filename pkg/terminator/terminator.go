@@ -12,15 +12,18 @@ import (
 
 //go:generate mockgen -source=terminator.go -destination=../mocks/terminator_mock.go -package=mocks
 
+// Terminator is an interface to define resources deleter.
 type Terminator interface {
 	KillRandomPod(ctx context.Context, namespace string) error
 }
 
+// PodTerminator is a Terminator to kill pods.
 type PodTerminator struct {
 	k8sClient       kubernetes.Interface
 	listPodsOptions metav1.ListOptions
 }
 
+// NewPodTerminator creates a new PodTerminator with a given blacklist.
 func NewPodTerminator(k8sClient kubernetes.Interface, blacklist *Blacklist) *PodTerminator {
 	return &PodTerminator{
 		k8sClient:       k8sClient,
@@ -28,6 +31,7 @@ func NewPodTerminator(k8sClient kubernetes.Interface, blacklist *Blacklist) *Pod
 	}
 }
 
+// KillRandomPod kills a random pod in a given namespace.
 func (t *PodTerminator) KillRandomPod(ctx context.Context, namespace string) error {
 	runningPods, err := t.k8sClient.CoreV1().Pods(namespace).List(ctx, t.listPodsOptions)
 	if err != nil {

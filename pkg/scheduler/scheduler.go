@@ -9,14 +9,17 @@ import (
 
 //go:generate mockgen -source=scheduler.go -destination=../mocks/scheduler_mock.go -package=mocks
 
+// Scheduler is an interface that defines the methods that a scheduler must implement.
 type Scheduler interface {
 	Start(ctx context.Context, schedule string, task func()) error
 }
 
+// CronScheduler is a struct that manage the cron scheduler.
 type CronScheduler struct {
 	cron *cron.Cron
 }
 
+// NewCronScheduler creates a new CronScheduler with the schedule format provided.
 func NewCronScheduler(scheduleFormat string) (*CronScheduler, error) {
 	c, err := getCronWithFormat(scheduleFormat)
 	if err != nil {

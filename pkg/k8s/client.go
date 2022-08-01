@@ -12,6 +12,9 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
+// NewClientset returns a new Kubernetes clientset. If it's executed inside a cluster, it will use the in-cluster
+// configuration, with the credentials of the ServiceAccount configured for the Pod. If it's executed locally, it will
+// use the kube/config of the user's $HOME.
 func NewClientset(cfg *config.Config) *kubernetes.Clientset {
 	kubeConfig := newKubernetesConfig(cfg)
 

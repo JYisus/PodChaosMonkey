@@ -7,6 +7,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// Blacklist is the struct that manage the labels and field selectors to exclude blacklisted pods.
 type Blacklist struct {
 	Labels         map[string]string `yaml:"labels"`
 	FieldSelectors map[string]string `yaml:"fieldSelectors"`

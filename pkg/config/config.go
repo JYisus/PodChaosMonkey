@@ -11,6 +11,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// Config is the struct that contains the configuration of the PodChaosMonkey.
 type Config struct {
 	Namespace       string
 	Schedule        string
