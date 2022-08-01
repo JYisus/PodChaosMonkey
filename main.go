@@ -13,7 +13,7 @@ import (
 
 func main() {
 	ctx := context.Background()
-	cfg := config.NewConfig()
+	cfg := config.New()
 	clientset := k8s.NewClientset(cfg)
 	podTerminator := terminator.NewPodTerminator(clientset, cfg.Blacklist)
 	sch, err := scheduler.NewCronScheduler(cfg.ScheduleFormat)

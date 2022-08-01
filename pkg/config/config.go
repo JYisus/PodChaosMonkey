@@ -21,7 +21,8 @@ type Config struct {
 
 const blacklistPath = "blacklist.yml"
 
-func NewConfig() *Config {
+// New creates a Config struct from the provided environment variables.
+func New() *Config {
 	cfg := &Config{
 		Namespace:       "workloads",
 		Schedule:        "* * * * *",
