@@ -15,6 +15,10 @@ import (
 	"k8s.io/client-go/kubernetes/fake"
 )
 
+var podsLabels = map[string]string{
+	"app": "workload",
+}
+
 func generatePods(namespace string, amount int) []runtime.Object {
 	pods := make([]runtime.Object, amount)
 	for i := 0; i < amount; i++ {
@@ -26,6 +30,7 @@ func generatePods(namespace string, amount int) []runtime.Object {
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      fmt.Sprintf("pod-%d", i),
 				Namespace: namespace,
+				Labels:    podsLabels,
 			},
 		}
 	}
@@ -46,6 +51,7 @@ func TestKiller_KillRandomPod(t *testing.T) {
 		namespace            string
 		numberOfPods         int
 		expectedNumberOfPods int
+		blacklist            *terminator.Blacklist
 		wantError            bool
 		errorString          string
 	}{
@@ -54,6 +60,7 @@ func TestKiller_KillRandomPod(t *testing.T) {
 			namespace:            "workloads",
 			numberOfPods:         3,
 			expectedNumberOfPods: 2,
+			blacklist:            nil,
 			wantError:            false,
 			errorString:          "",
 		},
@@ -62,8 +69,20 @@ func TestKiller_KillRandomPod(t *testing.T) {
 			namespace:            "workloads",
 			numberOfPods:         0,
 			expectedNumberOfPods: 0,
+			blacklist:            nil,
 			wantError:            true,
 			errorString:          "no pods running on namespace \"workloads\"",
+		},
+		{
+			name:                 "Test no pod is deleted if their are in the blacklist",
+			namespace:            "workloads",
+			numberOfPods:         3,
+			expectedNumberOfPods: 3,
+			blacklist: &terminator.Blacklist{
+				Labels: podsLabels,
+			},
+			wantError:   true,
+			errorString: "no pods running on namespace \"workloads\"",
 		},
 	}
 
@@ -71,7 +90,7 @@ func TestKiller_KillRandomPod(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			pods := generatePods(tc.namespace, tc.numberOfPods)
 			clientset := fake.NewSimpleClientset(pods...)
-			podTerminator := terminator.NewPodTerminator(clientset, nil)
+			podTerminator := terminator.NewPodTerminator(clientset, tc.blacklist)
 			err := podTerminator.KillRandomPod(context.Background(), tc.namespace)
 
 			if tc.wantError {
