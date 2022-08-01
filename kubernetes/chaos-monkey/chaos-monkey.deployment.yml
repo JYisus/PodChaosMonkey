@@ -19,16 +19,22 @@ spec:
       containers:
         - name: chaos-monkey
           image: jyisus/chaos-monkey:0.0.1
-          env:
-            - name: CM_IS_INSIDE_CLUSTER
-              value: "true"
-            - name: CM_NAMESPACE
-              value: "workloads"
-            - name: CM_SCHEDULE_FORMAT
-              value: "cron-seconds"
-            - name: CM_SCHEDULE
-              value: "*/5 * * * * *"
+          envFrom:
+            - configMapRef:
+                name: chaos-monkey-config
           resources:
             limits:
               cpu: 100m
               memory: 128M
+          volumeMounts:
+            - name: blacklist-config
+              mountPath: /app/blacklist.yml
+              subPath: blacklist.yml
+              readOnly: true
+      volumes:
+        - name: blacklist-config
+          configMap:
+            name: chaos-monkey-config
+            items:
+              - key: blacklist.yml
+                path: blacklist.yml

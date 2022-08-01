@@ -70,7 +70,7 @@ func TestKiller_KillRandomPod(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			pods := generatePods(tc.namespace, tc.numberOfPods)
 			clientset := fake.NewSimpleClientset(pods...)
-			podTerminator := terminator.NewPodTerminator(clientset)
+			podTerminator := terminator.NewPodTerminator(clientset, nil)
 			err := podTerminator.KillRandomPod(context.Background(), tc.namespace)
 
 			if tc.wantError {
