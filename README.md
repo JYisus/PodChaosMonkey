@@ -2,7 +2,7 @@
 
 Application for testing the resilience of workloads in kubernetes.
 
-- [How it works?](#how-it-works)
+- [How it works](#how-it-works)
   - [Configuration](#configuration)
   - [Schedule format](#schedule-format)
   - [Blacklist](#blacklist)
@@ -15,7 +15,7 @@ Application for testing the resilience of workloads in kubernetes.
   - [Generate mocks](#generate-mocks)
   - [Run tests](#run-tests)
 
-## How it works?
+## How it works
 
 Chaos Monkey deletes a random pod in a defined namespace (`workloads` by default) on a schedule
 (each 5 seconds by default).
