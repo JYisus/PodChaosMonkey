@@ -58,3 +58,52 @@ labels:
 fieldSelectors:
   status.phase: Pending
 ```
+
+## Usage
+
+### Build Image
+
+An image for PodChaosMonkey is available on [DockerHub](https://hub.docker.com/repository/docker/yisusisback/pod-chaos-monkey).
+If you want to build your own image, run:
+```bash
+docker build -t [image-name] .
+```
+
+Also, you have to update de Kubernetes [deployment](./kubernetes/chaos-monkey/chaos-monkey.deployment.yml) for
+PodChaosMonkey to use your image.
+
+### Deploy
+To deploy PodChaosMonkey, run the following command from the project's root directory:
+
+```bash
+./scripts/deploy.sh
+```
+
+### Clean deployed resources
+To clean previously deployed resources, run the following command from the project's root directory:
+
+```bash
+./scripts/clean.sh
+```
+
+## Development
+
+### Run PodChaosMonkey locally
+You can run PodChaosMonkey locally by running the following command:
+
+```bash
+IS_INSIDE_CLUSTER=false go run main.go
+```
+
+If its running locally, IS_INSIDE_CLUSTER should be set to false, and the Kubernetes clientset is generated with your
+kube config file.
+
+### Generate mocks
+```bash
+go generate ./...
+```
+
+### Run tests
+```bash
+go test ./...
+```
