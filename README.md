@@ -23,7 +23,7 @@ You can set the following configuration parameters as environment variables:
 
 > \* Format are explained [here](#schedule-format).
 
-You can set this configuration parameters in the following [configmap](./kubernetes/chaos-monkey/chaos-monkey.configmap.yml).
+You can set this configuration parameters in the following [configmap](./kubernetes/pod-chaos-monkey/pod-chaos-monkey.configmap.yml).
 
 ### Schedule format
 
@@ -47,7 +47,7 @@ fieldSelectors: []
 * `fieldSelectors` are a key-value that represent the field selectors of the pods to be blacklisted. For more information,
   see [Kubernetes API](https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/).
 
-You can set the `blacklist.yml` on the following [configmap](./kubernetes/chaos-monkey/chaos-monkey.configmap.yml).
+You can set the `blacklist.yml` on the following [configmap](./kubernetes/pod-chaos-monkey/blacklist.configmap.yml).
 
 #### Example
 The following `blacklist.yml` excludes pods with the label `app=my-app` and pods with status `Pending`:
@@ -69,7 +69,7 @@ If you want to build your own image, run:
 docker build -t [image-name] .
 ```
 
-Also, you have to update de Kubernetes [deployment](./kubernetes/chaos-monkey/chaos-monkey.deployment.yml) for
+Also, you have to update de Kubernetes [deployment](./kubernetes/pod-chaos-monkey/pod-chaos-monkey.deployment.yml) for
 PodChaosMonkey to use your image.
 
 ### Deploy
