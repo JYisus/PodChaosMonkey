@@ -39,7 +39,8 @@ func (t *PodTerminator) KillRandomPod(ctx context.Context, namespace string) err
 	}
 
 	if len(runningPods.Items) == 0 {
-		return fmt.Errorf("no pods running on namespace \"%s\"", namespace)
+		log.Printf("No pods listed on namespace \"%s\"", namespace)
+		return nil
 	}
 
 	podToDelete := runningPods.Items[rand.Intn(len(runningPods.Items))]

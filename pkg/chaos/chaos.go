@@ -24,10 +24,11 @@ func New(cronScheduler scheduler.Scheduler, podTerminator terminator.Terminator)
 
 // Run starts the scheduler with the terminator KillRandomPod function.
 func (c *Chaos) Run(ctx context.Context, schedule string, namespace string) error {
+	log.Printf("Starting PodChaosMonkey with schedule \"%s\" in namespace \"%s\"", schedule, namespace)
 	return c.cronScheduler.Start(ctx, schedule, func() {
 		err := c.podTerminator.KillRandomPod(ctx, namespace)
 		if err != nil {
-			log.Println(err)
+			log.Printf("Error during chaos execution: %s", err)
 		}
 	})
 }
