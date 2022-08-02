@@ -15,7 +15,7 @@ spec:
       labels:
         app: pod-chaos-monkey
     spec:
-      serviceAccountName: chaos-monkey
+      serviceAccountName: pod-chaos-monkey-sa
       containers:
         - name: chaos-monkey
           image: yisusisback/pod-chaos-monkey:0.0.1
