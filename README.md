@@ -4,6 +4,16 @@ Application for testing the resilience of workloads in kubernetes.
 
 - [How it works?](#how-it-works)
   - [Configuration](#configuration)
+  - [Schedule format](#schedule-format)
+  - [Blacklist](#blacklist)
+- [Usage](#usage)
+  - [Build image](#build-image)
+  - [Deploy](#deploy)
+  - [Clean deployed resources](#clean-deployed-resources)
+- [Development](#development)
+  - [Run PodChaosMonkey locally](#run-podchaosmonkey-locally)
+  - [Generate mocks](#generate-mocks)
+  - [Run tests](#run-tests)
 
 ## How it works?
 
