@@ -18,7 +18,7 @@ spec:
       serviceAccountName: chaos-monkey
       containers:
         - name: chaos-monkey
-          image: jyisus/chaos-monkey:0.0.1
+          image: yisusisback/pod-chaos-monkey:0.0.1
           envFrom:
             - configMapRef:
                 name: pod-chaos-monkey-config
