@@ -4,7 +4,7 @@ metadata:
   name: chaos-monkey
 subjects:
   - kind: ServiceAccount
-    name: chaos-monkey
+    name: pod-chaos-monkey-sa
     apiGroup: ""
     namespace: chaos-monkey
 roleRef:

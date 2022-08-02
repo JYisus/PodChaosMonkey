@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chaos-monkey
-  namespace: chaos-monkey
+  name: pod-chaos-monkey
+  namespace: chaos
   labels:
     app: chaos-monkey
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chaos-monkey
+      app: pod-chaos-monkey
   template:
     metadata:
       labels:
-        app: chaos-monkey
+        app: pod-chaos-monkey
     spec:
       serviceAccountName: chaos-monkey
       containers:
@@ -21,7 +21,7 @@ spec:
           image: jyisus/chaos-monkey:0.0.1
           envFrom:
             - configMapRef:
-                name: chaos-monkey-config
+                name: pod-chaos-monkey-config
           resources:
             limits:
               cpu: 100m
@@ -34,7 +34,7 @@ spec:
       volumes:
         - name: blacklist-config
           configMap:
-            name: chaos-monkey-config
+            name: pod-chaos-monkey-blacklist
             items:
               - key: blacklist.yml
                 path: blacklist.yml

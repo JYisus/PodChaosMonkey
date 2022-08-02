@@ -1,15 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: chaos-monkey-config
-  namespace: chaos-monkey
+  name: pod-chaos-monkey-config
+  namespace: chaos
 data:
   NAMESPACE: "workloads"
   SCHEDULE: "*/10 * * * * *"
   SCHEDULE_FORMAT: "cron-seconds"
   IS_INSIDE_CLUSTER: "true"
-  blacklist.yml: |
-    labels:
-      tier: control-plane
-    fieldSelectors:
-      'status.phase': Pending

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pod-chaos-monkey-blacklist
+  namespace: chaos
+data:
+  blacklist.yml: |
+    labels:
+      tier: control-plane
+    fieldSelectors:
+      'status.phase': Pending
