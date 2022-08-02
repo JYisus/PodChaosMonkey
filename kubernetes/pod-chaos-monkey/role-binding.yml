@@ -6,7 +6,7 @@ subjects:
   - kind: ServiceAccount
     name: pod-chaos-monkey-sa
     apiGroup: ""
-    namespace: chaos-monkey
+    namespace: chaos
 roleRef:
   kind: ClusterRole
   name: pod-deleter
